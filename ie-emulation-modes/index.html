@@ -4,13 +4,27 @@
   <title>Testing various IE emulation modes with iframes</title>
 </head>
 <body>
-  <ul><li>IE 11 parent
-      <ul><li><a href="ie-11.html?11">IE 11 child</a></li>
-        <li><a href="ie-11.html?10">IE 10 child</a></li></ul>
-    </li>
-    <li>IE 10 parent
-      <ul><li><a href="ie-10.html?11">IE 11 child</a></li>
-        <li><a href="ie-10.html?10">IE 10 child</a></li></ul>
-    </li></ul>
+  <ul id="browsers"></ul>
+  <script>
+    var browsers = document.getElementById('browsers'),
+      pages = [7,8,9,10,11,'edge']
+      i = pages.length,
+      j;
+    
+    while (i-- > 0) {
+      j = pages.length;
+      var list = document.createElement('ul');
+      var item = document.createElement('li');
+      item.innerHTML = 'IE ' + pages[i];
+      item.appendChild(list);
+      browsers.appendChild(item);
+      
+      while (j-- > 0) {
+        var subItem = document.createElement('li');
+        subItem.innerHTML = '<a href="ie-' + i + '.html?' + j + '">IE ' + j + ' child</a>';
+        list.appendChild(subItem);
+      }
+    }
+  </script>
 </body>
 </html>
