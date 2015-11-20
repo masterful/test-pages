@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>IE 11 parent</title>
+</head>
+<body>
+  <h1 id="current-version"></h1>
+  <pre id="details"></pre>
+  <iframe id="child-page"></iframe>
+  <script>
+  var currentVersion = document.getElementById('current-version'),
+    details = document.getElementById('details'),
+    childPage = document.getElementById('child-page'),
+    baseURL = '//masterful.github.io/test-pages/ie-emulation-modes/',
+    childRequested = parseInt(window.location.search);
+  
+  currentVersion.innerHTML = 'IE ' + document.documentMode;
+  details.innerHTML = 'User-Agent: ' + navigator.userAgent;
+  if (childRequested) {
+    childPage.src = baseURL + 'ie-' + (childRequested || 11) + '.html';
+  }
+  </script>
+</body>
+</html>
