@@ -20,7 +20,7 @@
   </style>
 </head>
 <body>
-  <h1 id="current-version"></h1>
+  <h1 id="current-version">IE 9: </h1>
   <pre id="details"></pre>
   <iframe id="child-page"></iframe>
   <script>
@@ -30,7 +30,7 @@
     baseURL = '//masterful.github.io/test-pages/ie-emulation-modes/',
     childRequested = parseInt(window.location.search.slice(1));
   
-  currentVersion.innerHTML = document.title = 'IE ' + document.documentMode;
+  currentVersion.innerHTML += document.title = 'IE ' + document.documentMode;
   details.innerHTML = 'User-Agent: ' + navigator.userAgent;
   if (childRequested) {
     childPage.src = baseURL + 'ie-' + childRequested + '.html';
