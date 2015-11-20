@@ -28,12 +28,12 @@
     details = document.getElementById('details'),
     childPage = document.getElementById('child-page'),
     baseURL = '//masterful.github.io/test-pages/ie-emulation-modes/',
-    childRequested = parseInt(window.location.search.slice(1));
+    childRequested = window.location.search.slice(1);
   
   currentVersion.innerHTML += document.title = 'IE ' + document.documentMode;
   details.innerHTML = 'User-Agent: ' + navigator.userAgent;
-  if (childRequested) {
-    childPage.src = baseURL + 'ie-' + childRequested + '.html';
+  if (childRequested.length) {
+    childPage.src = baseURL + 'ie-' + encodeURIComponent(childRequested) + '.html';
     document.title += ' - IE ' + childRequested;
   }
   </script>
