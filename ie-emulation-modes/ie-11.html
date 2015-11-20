@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <title>IE 11 parent</title>
+  <title>IE emulation</title>
   <style>
     body {
       margin: 30px;
@@ -25,10 +25,11 @@
     baseURL = '//masterful.github.io/test-pages/ie-emulation-modes/',
     childRequested = parseInt(window.location.search.slice(1));
   
-  currentVersion.innerHTML = 'IE ' + document.documentMode;
+  currentVersion.innerHTML = document.title = 'IE ' + document.documentMode;
   details.innerHTML = 'User-Agent: ' + navigator.userAgent;
   if (childRequested) {
-    childPage.src = baseURL + 'ie-' + (childRequested || 11) + '.html';
+    childPage.src = baseURL + 'ie-' + childRequested + '.html';
+    document.title = ' - IE ' + childRequested;
   }
   </script>
 </body>
