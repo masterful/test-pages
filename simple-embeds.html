@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Testing Embeds</title>
+    <style>
+      #outer-container {
+        width: 80%;
+      }
+      #inner-container {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        position: relative;
+      }
+      #inner-container .vidyard_player > span {
+        height: 100% !important;
+        width: 100% !important;
+        position: absolute !important;
+      }
+      #inner-container .vidyard_player > span > iframe {
+        zoom: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outer-container"><div id="inner-container">
+      <h1>INLINE</h1>
+      <script type='text/javascript' id='vidyard_embed_code__Lz-8LaViNaqAJHy3jD3kA' src='//play-staging.vidyard.com/staging-hulk/_Lz-8LaViNaqAJHy3jD3kA.js?v=3.1.1&type=inline'></script>
+      <h1>LIGHTBOX</h1>
+      <script type='text/javascript' id='vidyard_embed_code_Doj8uN9PoAef0fwVeuF2Kw' src='//play-staging.vidyard.com/staging/Doj8uN9PoAef0fwVeuF2Kw.js?v=3.1.1&type=lightbox'></script>
+      <div class='outer_vidyard_wrapper'><div class='vidyard_wrapper' onclick='fn_vidyard_Doj8uN9PoAef0fwVeuF2Kw();'><img alt="Mean Girls - Quotes 1 - Karen" width="360" src="//play-staging.vidyard.com/staging/Doj8uN9PoAef0fwVeuF2Kw.jpg?" /><div class="vidyard_play_button"><a href="javascript:void(0);"></a></div></div></div>
+    </div></div>
+  </body>
+</html>
