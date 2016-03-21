@@ -30,10 +30,11 @@
         
         var uuid = (location.search.match(/\buuid=([^&]+)/) || [])[1] || 'rYhIeQlXJX0LwWE4_ymbCQ';
         var staging = (location.search.match(/\bstaging=([^&\.]+)/) || [null, 'batman'])[1];
+        var lightbox = location.search.match(/\blightbox=1/) ? '&lightbox=1' : '';
         
         var s = document.createElement('script');
         s.id  = 'vidyard_embed_code__' + uuid;
-        s.src = '//play-staging-' + staging + '.vidyard.com/' + uuid + '.js?preview=1';
+        s.src = '//play-staging-' + staging + '.vidyard.com/' + uuid + '.js?preview=1' + lightbox;
         document.getElementById('inner-container').appendChild(s);
       }());
       </script>
