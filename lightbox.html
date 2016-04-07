@@ -35,7 +35,7 @@
 
   var html = [
     '<div class="outer_vidyard_wrapper">',
-      '<div class="vidyard_wrapper" onclick="fn_vidyard_' + uuid + '();">',
+      '<div class="vidyard_wrapper" onclick="fn_vidyard_' + uuid.replace('-','$') + '();">',
         '<img alt="london-night"',
           ' width="360"',
             ' src="//' + domain + '.vidyard.com/' + uuid + '.jpg?">',
@@ -49,6 +49,7 @@
   
   var params = ['v=3.1.1',
              'type=lightbox',
+      'html5_first=' + (get_query_param('html5_first') === '1'?'1':'0'),
             'debug=1',
           'preview=1',
        'force_ctas=1',
