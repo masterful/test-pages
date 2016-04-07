@@ -32,12 +32,6 @@
   uuid = uuid.match(/[-_a-zA-Z0-9]+/)[0];
   var domain = get_query_param('domain') || 'play-staging-batman';
   domain = domain.match(/^[^\.]+/)[0];
-  var params = ['v=3.1.1',
-             'type=lightbox',
-            'debug=1',
-          'preview=1',
-       'force_ctas=1',
-  'force_analytics=1'].join('&');
 
   var html = [
     '<div class="outer_vidyard_wrapper">',
@@ -47,13 +41,23 @@
             ' src="//' + domain + '.vidyard.com/' + uuid + '.jpg?">',
         '<div class="vidyard_play_button"><a href="javascript:void(0);"></a></div>',
       '</div>',
-    '</div>',
-    '<script type="text/javascript"',
-             ' id="vidyard_embed_code_' + uuid + '"',
-            ' src="//' + domain + '.vidyard.com/' + uuid + '.js?' + params + '"></script>'
+    '</div>'
   ].join('');
 
-  document.getElementById('inner-container').innerHTML = html;
+  var el = document.getElementById('inner-container');
+  el.innerHTML = html;
+  
+  var params = ['v=3.1.1',
+             'type=lightbox',
+            'debug=1',
+          'preview=1',
+       'force_ctas=1',
+  'force_analytics=1'].join('&');
+  
+  var s = document.createElement('script');
+  s.id  = 'vidyard_embed_code_' + uuid;
+  s.src = '//' + domain + '.vidyard.com/' + uuid + '.js?' + params;
+  el.appendChild(s);
 
   // helper functions
   function get_query_param(param_name) {
