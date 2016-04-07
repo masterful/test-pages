@@ -24,12 +24,51 @@
   </head>
   <body>
     <div id="outer-container"><div id="inner-container">
-      <script type='text/javascript' id='vidyard_embed_code_RMm2OmXcCMdUOLiQa_M0Kw' src='//play-staging-aquaman.vidyard.com/RMm2OmXcCMdUOLiQa_M0Kw.js?v=3.1.1&type=lightbox&preview=1'></script><div class='outer_vidyard_wrapper'><div class='vidyard_wrapper' onclick='fn_vidyard_RMm2OmXcCMdUOLiQa_M0Kw();'><img alt="london-night" width="360" src="//play-staging-batman.vidyard.com/RMm2OmXcCMdUOLiQa_M0Kw.jpg?" /><div class="vidyard_play_button"><a href="javascript:void(0);"></a></div></div></div>
-<!--
-      <script type='text/javascript' id='vidyard_embed_code_4RSvVW4UzOumA4-1KCB_DA' src='//play.vidyard.com/4RSvVW4UzOumA4-1KCB_DA.js?v=3.1.1&type=lightbox'></script><div class='outer_vidyard_wrapper'><div class='vidyard_wrapper' onclick='fn_vidyard_4RSvVW4UzOumA4$1KCB_DA();'><img alt="cena" width="360" src="//play.vidyard.com/4RSvVW4UzOumA4-1KCB_DA.jpg?" /><div class="vidyard_play_button"><a href="javascript:void(0);"></a></div></div></div>
+      <script>
+(function() {
+  'use strict';
 
-      <script type='text/javascript' id='vidyard_embed_code__sKxS76U3R63atayEvwjoA' src='//play.vidyard.com/_sKxS76U3R63atayEvwjoA.js?v=3.1.1&type=lightbox'></script><div class='outer_vidyard_wrapper'><div class='vidyard_wrapper' onclick='fn_vidyard__sKxS76U3R63atayEvwjoA();'><img alt="ls_mime" width="360" src="//play.vidyard.com/_sKxS76U3R63atayEvwjoA.jpg?" /><div class="vidyard_play_button"><a href="javascript:void(0);"></a></div></div></div>
--->
+  var uuid = get_query_param('uuid') || 'RMm2OmXcCMdUOLiQa_M0Kw';
+  uuid = uuid.match(/[-_a-zA-Z0-9]+/)[0];
+  var domain = get_query_param('domain') || 'play-staging-batman';
+  domain = domain.match(/^[^\.]+/)[0];
+  var params = ['v=3.1.1',
+             'type=lightbox',
+            'debug=1',
+          'preview=1',
+       'force_ctas=1',
+  'force_analytics=1'].join('&');
+
+  var html = [
+    '<div class="outer_vidyard_wrapper">',
+      '<div class="vidyard_wrapper" onclick="fn_vidyard_' + uuid + '();">',
+        '<img alt="london-night"',
+          ' width="360"',
+            ' src="//' + domain + '.vidyard.com/' + uuid + '.jpg?">',
+        '<div class="vidyard_play_button"><a href="javascript:void(0);"></a></div>',
+      '</div>',
+    '</div>',
+    '<script type="text/javascript"',
+             ' id="vidyard_embed_code_' + uuid + '"',
+            ' src="//' + domain + '.vidyard.com/' + uuid + '.js?' + params + '"></script>'
+  ].join('');
+
+  document.getElementById('inner-container').innerHTML = html;
+
+  // helper functions
+  function get_query_param(param_name) {
+    var params = location.search.slice(1).split('&');
+    var i = params.length;
+
+    while(i --> 0) {
+      var key_value = params[i].split('=');
+      if (decodeURIComponent(key_value[0]) === param_name) { return decodeURIComponent(key_value[1]); }
+    }
+
+    return undefined;
+  }
+}());
+      </script>
     </div></div>
   </body>
 </html>
