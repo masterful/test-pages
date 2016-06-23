@@ -36,7 +36,9 @@
     Test.prototype.testing = function() {};
     
     details.innerHTML += (Object.create(Test.prototype) && 'Object.create is supported');
-  }catch(e) {}
+  }catch(e) {
+    details.innerHTML += 'Object.create is NOT supported';
+  }
   
   if (childRequested.length) {
     childPage.src = baseURL + 'ie-' + encodeURIComponent(childRequested) + '.html';
