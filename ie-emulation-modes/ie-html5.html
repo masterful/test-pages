@@ -31,6 +31,13 @@
   
   currentVersion.innerHTML += document.title = 'IE ' + document.documentMode;
   details.innerHTML = 'User-Agent: ' + navigator.userAgent;
+  try {
+    function Test() {}
+    Test.prototype.testing = function() {};
+    
+    details.innerHTML += (Object.create(Test.prototype) && 'Object.create is supported');
+  }catch(e) {}
+  
   if (childRequested.length) {
     childPage.src = baseURL + 'ie-' + encodeURIComponent(childRequested) + '.html';
     document.title += ' - IE ' + childRequested;
