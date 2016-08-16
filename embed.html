@@ -28,12 +28,13 @@
       (function() {
         'use strict';
         
-        var uuid = (location.search.match(/\buuid=([^&]+)/) || [])[1] || 'rYhIeQlXJX0LwWE4_ymbCQ';
-        var staging = (location.search.match(/\bstaging=([^&\.]+)/) || [null, 'batman'])[1];
+        var url = (location.search.match(/\burl=([^&]+)/) || [])[1] || '';
+        if (!url.match(/^[^\/]+vidyard\.(dev|com)\//)) { url = 'play-staging.vidyard.com/rYhIeQlXJX0LwWE4_ymbCQ'; }
         
+        var uuid = (url.match(/^[^\/]+\/(\w+)/) || [])[1];
         var s = document.createElement('script');
         s.id  = 'vidyard_embed_code__' + uuid;
-        s.src = '//play-staging-' + staging + '.vidyard.com/' + uuid + '.js?preview=1';
+        s.src = url + '.js?preview=1';
         document.getElementById('inner-container').appendChild(s);
       }());
       </script>
