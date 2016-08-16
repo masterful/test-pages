@@ -34,7 +34,7 @@
         var uuid = (url.match(/^[^\/]+\/(\w+)/) || [])[1];
         var s = document.createElement('script');
         s.id  = 'vidyard_embed_code__' + uuid;
-        s.src = url.replace(uuid, uuid + '.js');
+        s.src = '//' + url.replace(uuid, uuid + '.js');
         document.getElementById('inner-container').appendChild(s);
       }());
       </script>
