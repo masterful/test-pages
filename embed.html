@@ -28,7 +28,7 @@
       (function() {
         'use strict';
         
-        var url = decodeURIComponent((location.search.match(/\burl=([^&]+)/) || [])[1] || '');
+        var url = (location.search.match(/url=(.*)/) || [])[1] || '';
         if (!url.match(/^[^\/]+vidyard\.(dev|com)\//)) { url = 'play-staging.vidyard.com/rYhIeQlXJX0LwWE4_ymbCQ'; }
         
         var uuid = (url.match(/^[^\/]+\/([\w-]+)/) || [])[1];
