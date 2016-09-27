@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Silly Embed</title>
+</head>
+<body>
+  <div class="container-fluid content-container">
+    <div class="columnContainer parbase section"><div class="  columns-wrapper bg-cumulus bg-left-center bg-cover lazy   " style="margin-top:0px;margin-bottom:0px;" data-src="//c1.sfdcstatic.com/content/dam/web/en_us/live/images/background-images/video-bg-1600x600.jpg">
+      <div class="container">
+        <div class="row columns-wrapper ">
+          <div class="col text-left  col-sm-12 col-md-12 col-lg-12"><div class="parbase sfLiveVideoComponent section"><div id="sflive-player" data-threshold="10000000" data-image-desktop="/content/dam/web/en_us/live/images/background-images/video-bg-1024x576.jpg" data-image-mobile="/content/dam/web/en_us/live/images/background-images/sticky_coming_soon.jpg">
+            <div class="inner">
+              <div>
+                <div class="coming-soon-thumb"></div>
+                <div class="gated-container">
+                  <div class="text-white salesforce-sans-light video-title">Interview with Congressman John Lewis  — Salesforce Connections 2016</div>
+                  <div>
+                    <button id="showGate" class="btn btn-primary btn-lg ">
+                      Register to watch
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+  <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script src="//play-staging.vidyard.com/v0/api.js"></script>
+  <script>
+// A rough approximation of an embed approach in the wild that causes issues with API changes
+
+var SFLive = SFLive || {};
+SFLive.VidyardPlayer = (function(b) {
+  var c = b("#sflive-player");
+  var a = function(f) {
+    var e, g = new Vidyard.player(f.vidyardPlayerUUID), k = f.showVidyardVideo ? f.showVidyardVideo : false;
+    if (k) {
+      var h = setInterval(function() {
+        if (g.status !== null && g.metadata) {
+          var o = g.metadata || g.metadata();
+          if (o) {
+            var n, m, l, p = b.map(o.chapters_attributes, function(q) {
+              return q.video_attributes
+            });
+            b(".vidyard_player").prependTo("#sflive-player .inner > div");
+            l = "#vidyard_span_" + f.vidyardPlayerUUID;
+            m = b(".vidyard_iframe," + l);
+            b(l).css({
+              position: "static",
+              height: "100%",
+              width: "100%"
+            })
+          }
+          clearInterval(h)
+        }
+      }, 1)
+    } else {
+      var j = b("#video-processing-message-template").html();
+      c.find(".inner > div").prepend(j);
+      var i = b(".processingTextMessageFromSettings").text().trim() !== "";
+      if (i) {
+        b(".processingTextMessageByDefault").remove()
+      }
+      c.siblings(".promo-banner-video-position").remove()
+    }
+  }
+  ;
+  var d = function(e) {
+    if (!e.vidyardPlayerUUID) {
+      return
+    }
+    var f = setInterval(function() {
+      var h, g;
+      if (!document.getElementById("vidyard_embed_code")) {
+        h = document.createElement("script");
+        h.type = "text/javascript";
+        h.src = "https://play-staging.vidyard.com/" + e.vidyardPlayerUUID + ".js?v=3.1&type=inline&hide_html5_playlist=1&autoplay=1";
+        h.id = "vidyard_embed_code";
+        c.append(h)
+      }
+      if (typeof Vidyard._players === "object") {
+        clearInterval(f);
+        SFLive.VidyardPlayer.loadVidyardPlayer(e)
+      }
+    }, 1);
+  }
+  ;
+  return {
+    initSFLVidyard: d,
+    loadVidyardPlayer: a
+  }
+}(jQuery));
+
+var video = { vidyardPlayerUUID: '4Z7MZUfwfebKLbE16D7Aap', showVidyardVideo: true };
+SFLive.VidyardPlayer.initSFLVidyard(video);
+
+</script>
+</body>
+</html>
