@@ -36,7 +36,7 @@
         var button = document.getElementById('click-me');
         
         var embed = function() {
-          button.parent.removeChild(button);
+          button.parentElement.removeChild(button);
           var url = (location.search.match(/url=(.*)/) || [])[1] || '';
           if (!url.match(/^[^\/]+vidyard\.(dev|com)\//)) { url = 'play-staging.vidyard.com/rYhIeQlXJX0LwWE4_ymbCQ'; }
 
