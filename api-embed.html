@@ -25,7 +25,6 @@
   <body>
     <div id="outer-container"><div id="inner-container">
       <script>
-      var uuid;
       (function() {
         'use strict';
         
@@ -33,7 +32,7 @@
         if (!url.match(/^[^\/]+vidyard\.(dev|com)\//)) { url = 'play-staging.vidyard.com/rYhIeQlXJX0LwWE4_ymbCQ'; }
         
         var innerContainer = document.getElementById('inner-container');
-        uuid = (url.match(/^[^\/]+\/([\w-]+)/) || [])[1];
+        var uuid = (url.match(/^[^\/]+\/([\w-]+)/) || [])[1];
         var s = document.createElement('script');
         s.id  = 'vidyard_embed_code_' + uuid;
         s.src = '//' + url.replace(uuid, uuid + '.js');
@@ -48,7 +47,7 @@
         var apiReady = function() {
           clearInterval(interval);
           console.log('started');
-          var player = new Vidyard.Player(uuid);
+          var player = new Vidyard.player(uuid);
           player.on('ready', function() {
             console.log('player is ready');
 
