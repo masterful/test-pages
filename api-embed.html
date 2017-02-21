@@ -20,47 +20,60 @@
       #inner-container .vidyard_player > span > iframe {
         zoom: 1;
       }
+      #click-me {
+        padding: 3em;
+        background-color: lightgreen;
+        color: black;
+      }
     </style>
   </head>
   <body>
     <div id="outer-container"><div id="inner-container">
+      <button id="click-me" type="button">Embed Player</button>
       <script>
       (function() {
         'use strict';
+        var button = document.getElementById('click-me');
         
-        var url = (location.search.match(/url=(.*)/) || [])[1] || '';
-        if (!url.match(/^[^\/]+vidyard\.(dev|com)\//)) { url = 'play-staging.vidyard.com/rYhIeQlXJX0LwWE4_ymbCQ'; }
-        
-        var innerContainer = document.getElementById('inner-container');
-        var uuid = (url.match(/^[^\/]+\/([\w-]+)/) || [])[1];
-        var s = document.createElement('script');
-        s.id  = 'vidyard_embed_code_' + uuid;
-        s.src = '//' + url.replace(uuid, uuid + '.js');
-        innerContainer.appendChild(s);
-        
-        var host = url.split('/')[0];
-        s = document.createElement('script');
-        s.src = '//' + host + '/v0/api.js';
-        innerContainer.appendChild(s);
-        
-        var interval = null;
-        var apiReady = function() {
-          clearInterval(interval);
-          console.log('started');
-          var player = new Vidyard.player(uuid);
-          player.on('ready', function() {
-            console.log('player is ready');
+        var embed = function() {
+          button.parent.removeChild(button);
+          var url = (location.search.match(/url=(.*)/) || [])[1] || '';
+          if (!url.match(/^[^\/]+vidyard\.(dev|com)\//)) { url = 'play-staging.vidyard.com/rYhIeQlXJX0LwWE4_ymbCQ'; }
 
-            player.on('play', function() { console.log('Player is playing'); });
-            player.on('pause', function() { console.log('Player is paused'); });
+          var innerContainer = document.getElementById('inner-container');
+          var uuid = (url.match(/^[^\/]+\/([\w-]+)/) || [])[1];
+          var s = document.createElement('script');
+          s.id  = 'vidyard_embed_code_' + uuid;
+          s.src = '//' + url.replace(uuid, uuid + '.js');
+          innerContainer.appendChild(s);
 
-            player.play();
-          });
+          var host = url.split('/')[0];
+          s = document.createElement('script');
+          s.src = '//' + host + '/v0/api.js';
+          innerContainer.appendChild(s);
+
+          var interval = null;
+          var apiReady = function() {
+            clearInterval(interval);
+            console.log('started');
+            var player = new Vidyard.player(uuid);
+            player.on('ready', function() {
+              console.log('player is ready');
+
+              player.on('play', function() { console.log('Player is playing'); });
+              player.on('pause', function() { console.log('Player is paused'); });
+
+              player.play();
+            });
+          };
+
+          interval = setInterval(function() {
+            if (window.Vidyard && (typeof window.Vidyard.player === 'function')) { apiReady(); }
+          }, 400);
         };
         
-        interval = setInterval(function() {
-          if (window.Vidyard && (typeof window.Vidyard.player === 'function')) { apiReady(); }
-        }, 400);
+        button.addEventListener('click', embed);
+        button.addEventListener('touchstart', embed);
       }());
       </script>
     </div></div>
