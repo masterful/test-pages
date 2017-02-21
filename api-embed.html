@@ -21,23 +21,6 @@
         zoom: 1;
       }
     </style>
-    <script type="pv/waiting" id="waiting">
-    (function() {
-      'use strict';
-      debugger;
-
-      console.log('started');
-      var player = new Vidyard.Player(uuid);
-      player.on('ready', function() {
-        console.log('player is ready');
-
-        player.on('play', function() { console.log('Player is playing'); });
-        player.on('pause', function() { console.log('Player is paused'); });
-
-        player.play();
-      });
-    }());
-    </script>
   </head>
   <body>
     <div id="outer-container"><div id="inner-container">
@@ -61,9 +44,24 @@
         s.src = '//' + host + '/v0/api.js';
         innerContainer.appendChild(s);
         
-        s = document.getElementById('waiting');
-        innerContainer.appendChild(s);
-        s.type = 'text/javascript';
+        var interval = null;
+        var apiReady = function() {
+          clearInterval(interval);
+          console.log('started');
+          var player = new Vidyard.Player(uuid);
+          player.on('ready', function() {
+            console.log('player is ready');
+
+            player.on('play', function() { console.log('Player is playing'); });
+            player.on('pause', function() { console.log('Player is paused'); });
+
+            player.play();
+          });
+        };
+        
+        interval = setInterval(function() {
+          if (window.Vidyard && (typeof window.Vidyard.player === 'function')) { apiReady(); }
+        }, 400);
       }());
       </script>
     </div></div>
