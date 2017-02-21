@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Testing Embeds</title>
+    <style>
+      #outer-container {
+        width: 80%;
+      }
+      #inner-container {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        position: relative;
+      }
+      #inner-container .vidyard_player > span {
+        height: 100% !important;
+        width: 100% !important;
+        position: absolute !important;
+      }
+      #inner-container .vidyard_player > span > iframe {
+        zoom: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outer-container"><div id="inner-container">
+      <script>
+      var uuid;
+      (function() {
+        'use strict';
+        
+        var url = (location.search.match(/url=(.*)/) || [])[1] || '';
+        if (!url.match(/^[^\/]+vidyard\.(dev|com)\//)) { url = 'play-staging.vidyard.com/rYhIeQlXJX0LwWE4_ymbCQ'; }
+        
+        uuid = (url.match(/^[^\/]+\/([\w-]+)/) || [])[1];
+        var s = document.createElement('script');
+        s.id  = 'vidyard_embed_code_' + uuid;
+        s.src = '//' + url.replace(uuid, uuid + '.js');
+        document.getElementById('inner-container').appendChild(s);
+        
+        var host = url.split('/')[0];
+        s = document.createElement('script');
+        s.src = '//' + host + '/v0/api.js';
+        document.getElementById('inner-container').appendChild(s);
+        
+        s = document.getElementById('waiting');
+        s.type = 'text/javascript';
+      }());
+      </script>
+      <script type="pv/waiting" id="waiting">
+      (function() {
+        'use strict';
+        
+        console.log('started');
+        var player = new Vidyard.Player(uuid);
+        player.on('ready', function() {
+          console.log('player is ready');
+          
+          player.on('play', function() { console.log('Player is playing'); });
+          player.on('pause', function() { console.log('Player is paused'); });
+          
+          player.play();
+        });
+      }());
+      </script>
+    </div></div>
+  </body>
+</html>
