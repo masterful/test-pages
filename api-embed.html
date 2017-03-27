@@ -59,6 +59,7 @@
             var player = new Vidyard.player(uuid);
             player.on('ready', function() {
               console.log('player is ready');
+              console.info('player metadata: ', player.metadata);
 
               player.on('play', function() { console.log('Player is playing'); });
               player.on('pause', function() { console.log('Player is paused'); });
