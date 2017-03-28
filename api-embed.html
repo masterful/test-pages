@@ -66,6 +66,10 @@
 
               player.play();
             });
+            player.on('visitor', function() {
+              console.info('player metadata: ', player.metadata);
+              console.log(player.metadata.visitorID);
+            });
           };
 
           interval = setInterval(function() {
