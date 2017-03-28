@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Testing Background Embed</title>
+    <style>
+      #outer-container {
+        width: 80%;
+      }
+      #inner-container {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        position: relative;
+      }
+      #inner-container iframe {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outer-container"><div id="inner-container">
+      <script>
+      (function() {
+        'use strict';
+        
+        var url = (location.search.match(/url=(.*)/) || [])[1] || '';
+        if (!url.match(/^[^\/]+vidyard\.(dev|com)\//)) { url = 'play-staging-batman.vidyard.com/4Z7MZUfwfebKLbE16D7Aap/type/background?preview=1'; }
+        
+        var i = document.createElement('iframe');
+        i.src = '//' + url;
+        i.setAttribute('scrolling', 'no');
+        i.setAttribute('frameborder', '0');
+        i.setAttribute('allowtransparency', 'true');
+        i.setAttribute('allowfullscreen', true);
+        document.getElementById('inner-container').appendChild(i);
+      }());
+      </script>
+    </div></div>
+  </body>
+</html>
