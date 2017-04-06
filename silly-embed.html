@@ -24,7 +24,7 @@
             </div>
           </div>
   <script src="//code.jquery.com/jquery-2.2.4.min.js"></script>
-  <script src="//play-staging.vidyard.com/v0/api.js?preview=1"></script>
+  <script src="//play-staging-hulk.vidyard.com/v0/api.js?preview=1"></script>
   <script>
 // A rough approximation of an embed approach in the wild that causes issues with API changes
 
@@ -73,7 +73,7 @@ SFLive.VidyardPlayer = (function(b) {
       if (!document.getElementById("vidyard_embed_code")) {
         h = document.createElement("script");
         h.type = "text/javascript";
-        h.src = "https://play-staging.vidyard.com/" + e.vidyardPlayerUUID + ".js?v=3.1&type=inline&hide_html5_playlist=1&autoplay=1&preview=1&force_analytics=1";
+        h.src = "https://play-staging-hulk.vidyard.com/" + e.vidyardPlayerUUID + ".js?v=3.1&type=inline&hide_html5_playlist=1&autoplay=1&preview=1&force_analytics=1";
         h.id = "vidyard_embed_code";
         c.append(h)
       }
