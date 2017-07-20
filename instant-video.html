@@ -29,6 +29,7 @@ input.invalid {
   position: relative;
   width: 100%;
   padding-bottom: 56.25%;
+  background-color: #eee;
 }
 iframe {
   position: absolute;
@@ -39,6 +40,7 @@ iframe {
   height: 100%;
   border: 1px solid #eee;
   box-sizing: border-box;
+  background: transparent;
 }
 
 button {
@@ -102,14 +104,14 @@ function createVideo() {
   if (!valid) { return; }
   
   // Bundle up the fields into the object we'll be encoding:
-  const { name, email, company } = values;
+  const { name, Email, Company } = values;
   
   const hash = btoa(JSON.stringify({
-    name_start: name,
-    name_sign: name,
-    name_tattoo: name,
-    email,
-    company,
+    Name_start: name,
+    Name_sign: name,
+    Name_tattoo: name,
+    Email,
+    Company,
   }));
   
   iframe.src = `https://replicator-staging.vidyard.com/vidyard-demo?fields=${hash}`;
