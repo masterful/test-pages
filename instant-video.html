@@ -73,7 +73,9 @@ button:active
       <input type="email" name="email" id="email" value="" placeholder="john@example.com">
       <button type="button" id="create">Create</button>
     </form>
-    <iframe src="about:blank" id="viewer"></iframe>
+    <div id="container">
+      <iframe src="about:blank" id="viewer"></iframe>
+    </div>
     <script>
 const fields = {
   name: document.getElementById('name'),
