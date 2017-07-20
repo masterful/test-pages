@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Instant Video</title>
+    <style>
+html,
+body {
+  margin: 0;
+}
+label,
+input {
+  display: block;
+}
+input.invalid {
+  border-color: red;
+}
+
+button {
+  display: inline-block;
+  box-sizing: border-box;
+  background-color: #a5de37;
+  border: none;
+  color: #333;
+  transition: all 0.3s;
+  padding: 0 1em;
+  cursor: pointer;
+}
+button:hover,
+button:focus {
+  background-color: #b9e563;
+}
+button:active 
+  background-color: #a1d243;
+  color: #ddd;
+}
+    </style>
+  </head>
+  <body>
+    <form id="instant">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" value="" placeholder="John">
+      <label for="company">Company:</label>
+      <input type="text" name="company" id="company" value="" placeholder="Vidyard">
+      <label for="email">Email:</label>
+      <input type="email" name="email" id="email" value="" placeholder="john@example.com">
+      <button type="button" id="create">Create</button>
+    </form>
+    <iframe src="about:blank" id="viewer"></iframe>
+    <script>
+const fields = {
+  name: document.getElementById('name'),
+  company: document.getElementById('company'),
+  email: document.getElementById('email'),
+};
+
+const iframe = document.getElementById('viewer');
+
+function createVideo() {
+  // Object we'll be passing to the creator:
+  const values = {};
+  
+  // Simple validation stuff:
+  let valid = true;
+  for (let fieldName in fields) {
+    const field = fields[fieldName];
+    const value = field.value.trim();
+    const fieldValid = value.length > 0;
+    valid = valid && fieldValid;
+    field.className = fieldValid ? '' : 'invalid';
+    values[fieldName] = value;
+  }
+  if (!valid) { return; }
+  
+  // Bundle up the fields into the object we'll be encoding:
+  const { name, email, company } = values;
+  
+  const hash = btoa(JSON.stringify({
+    name_start: name,
+    name_sign: name,
+    name_tattoo: name,
+    email,
+    company,
+  }));
+  
+  iframe.src = `https://replicator-staging.vidyard.com/vidyard-demo?fields=${hash}`;
+}
+
+// Prevent form submissions:
+const form = document.getElementById('instant');
+form.addEventListener('submit', function() { createVideo(); return false; });
+
+const create = document.getElementById('create');
+create.addEventListener('click', function() { createVideo(); return false; });
+create.addEventListener('touchdown', function() { createVideo(); return false; });
+    </script>
+  </body>
+</html>
