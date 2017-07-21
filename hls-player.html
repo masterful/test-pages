@@ -26,7 +26,7 @@ if(Hls.isSupported()) {
   hls.loadSource('https://vidyard-blender-staging.s3.amazonaws.com/replicator2/videos/vidyard-demo/'+hash+'.m3u8');
   hls.attachMedia(video);
   hls.on(Hls.Events.MANIFEST_PARSED,function() {
-    video.play();
+    video.play(0);
   });
 }
     </script>
