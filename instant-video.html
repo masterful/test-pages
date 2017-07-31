@@ -89,6 +89,7 @@ const fields = {
 };
 
 const iframe = document.getElementById('viewer');
+const top = iframe.getBoundingClientRect().top;
 
 function createVideo() {
   // Object we'll be passing to the creator:
@@ -118,6 +119,7 @@ function createVideo() {
   }));
   
   iframe.src = `https://replicator-staging.vidyard.com/vidyard-demo?fields=${hash}`;
+  window.scrollTo(0, top);
 }
 
 // Prevent form submissions:
