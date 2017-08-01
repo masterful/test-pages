@@ -33,7 +33,6 @@ input.invalid {
   width: 100%;
   padding-bottom: 56.25%;
   background-color: #eee;
-  overflow: hidden;
 }
 #container iframe {
   position: absolute;
@@ -80,7 +79,7 @@ button:active
       <button type="button" id="create">Create</button>
     </form>
     <div id="container">
-      <iframe src="about:blank" id="viewer"></iframe>
+      <iframe src="about:blank" id="viewer" scrolling="no"></iframe>
     </div>
     <script>
 const fields = {
