@@ -115,10 +115,9 @@ function createVideo() {
     if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
       // Get response data
       console.log(xhr);
-      let uuid;
-      debugger;
-  
-      iframe.src = `https://play-staging-aquaman.vidyard.com/oRYEWovB7cPGdB6Q5cJ3EW?custom_id={uuid}`;
+      const { unit: { uuid } } = JSON.parse(xhr.responseText);
+      
+      iframe.src = `https://play-staging-aquaman.vidyard.com/oRYEWovB7cPGdB6Q5cJ3EW?custom_id={uuid}&preview=1`;
       window.scrollTo(0, yCoord);
     }
   };
