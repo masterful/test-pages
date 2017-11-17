@@ -109,7 +109,7 @@ function createVideo() {
   const xhr = new XMLHttpRequest();
   xhr.open('POST', 'https://blender-staging.vidyard.com/forms/stranger-rtp/submit', true);
   xhr.setRequestHeader('Content-type', 'application/json');
-  xhr.setRequestHeader('Accepts', 'application/json');
+  xhr.setRequestHeader('Accept', 'application/json');
   
   xhr.onreadystatechange = function() {
     if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
