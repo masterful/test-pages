@@ -89,6 +89,12 @@ const fields = {
 const iframe = document.getElementById('viewer');
 const yCoord = iframe.getBoundingClientRect().top;
 
+let timeout;
+iframe.onload = function() {
+  create.disabled = false;
+  clearTimeout(timeout);
+}
+
 // Prevent form submissions:
 const form = document.getElementById('instant');
 form.addEventListener('submit', function(e) { e.preventDefault(); createVideo(); });
@@ -96,8 +102,6 @@ form.addEventListener('submit', function(e) { e.preventDefault(); createVideo();
 const create = document.getElementById('create');
 create.addEventListener('click', function() { createVideo(); return false; });
 create.addEventListener('touchdown', function() { createVideo(); return false; });
-      
-let timeout;
 
 function createVideo() {
   if (create.disabled) { return; };
@@ -134,8 +138,6 @@ function createVideo() {
       
       iframe.src = `https://play-staging-aquaman.vidyard.com/oRYEWovB7cPGdB6Q5cJ3EW?custom_id=${uuid}&preview=1`;
       window.scrollTo(0, yCoord);
-      create.disabled = false;
-      clearTimeout(timeout);
     }
   };
   
@@ -146,7 +148,7 @@ function createVideo() {
     },
   }));
   create.disabled = true;
-  timeout = setTimeout(function() { create.disabled = false }, 4000);
+  timeout = setTimeout(function() { create.disabled = false }, 14000);
 }
     </script>
   </body>
