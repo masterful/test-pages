@@ -62,8 +62,12 @@ button:hover,
 button:focus {
   background-color: #b9e563;
 }
-button:active 
+button:active {
   background-color: #a1d243;
+  color: #ddd;
+}
+button:disabled {
+  background-color: #a1a1a1;
   color: #ddd;
 }
     </style>
@@ -71,7 +75,7 @@ button:active
   <body>
     <form id="instant">
       <label for="name">Name:</label>
-      <input type="text" name="name" id="name" value="" placeholder="John">
+      <input type="text" name="name" id="name" value="" placeholder="John" autocomplete="off">
       <button type="button" id="create">Create</button>
     </form>
     <div id="container">
@@ -85,7 +89,18 @@ const fields = {
 const iframe = document.getElementById('viewer');
 const yCoord = iframe.getBoundingClientRect().top;
 
+// Prevent form submissions:
+const form = document.getElementById('instant');
+form.addEventListener('submit', function(e) { e.preventDefault(); createVideo(); });
+
+const create = document.getElementById('create');
+create.addEventListener('click', function() { createVideo(); return false; });
+create.addEventListener('touchdown', function() { createVideo(); return false; });
+      
+let timeout;
+
 function createVideo() {
+  if (create.disabled) { return; };
   // Object we'll be passing to the creator:
   const values = {};
   
@@ -119,6 +134,8 @@ function createVideo() {
       
       iframe.src = `https://play-staging-aquaman.vidyard.com/oRYEWovB7cPGdB6Q5cJ3EW?custom_id=${uuid}&preview=1`;
       window.scrollTo(0, yCoord);
+      create.disabled = false;
+      clearTimeout(timeout);
     }
   };
   
@@ -128,15 +145,9 @@ function createVideo() {
       firstname: name.toUpperCase(),
     },
   }));
+  create.disabled = true;
+  timeout = setTimeout(function() { create.disabled = false }, 4000);
 }
-
-// Prevent form submissions:
-const form = document.getElementById('instant');
-form.addEventListener('submit', function(e) { e.preventDefault(); createVideo(); });
-
-const create = document.getElementById('create');
-create.addEventListener('click', function() { createVideo(); return false; });
-create.addEventListener('touchdown', function() { createVideo(); return false; });
     </script>
   </body>
 </html>
