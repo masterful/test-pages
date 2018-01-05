@@ -126,7 +126,7 @@ function createVideo() {
   
   // Get the unit uuid:
   const xhr = new XMLHttpRequest();
-  xhr.open('POST', 'https://blender-staging.vidyard.com/forms/stranger-rtp/submit', true);
+  xhr.open('POST', 'https://blender.vidyard.com/forms/c8Ls2prKGXWE4THP2cfmiP2yKRu06ZjL/submit', true);
   xhr.setRequestHeader('Content-type', 'application/json');
   xhr.setRequestHeader('Accept', 'application/json');
   
@@ -136,13 +136,13 @@ function createVideo() {
       console.log(xhr);
       const { unit: { uuid } } = JSON.parse(xhr.responseText);
       
-      iframe.src = `https://play-staging-aquaman.vidyard.com/oRYEWovB7cPGdB6Q5cJ3EW?custom_id=${uuid}&preview=1`;
+      iframe.src = `https://play.vidyard.com/orsi3eRfkdryTWAxDYiDkT?custom_id=${uuid}&preview=1`;
       window.scrollTo(0, yCoord);
     }
   };
   
   xhr.send(JSON.stringify({
-    uuid: 'Sw2ccDAHAcxb6gK82crK9T',
+    uuid: 'C8bvP9xvL8HAJeJSbQBek1',
     fields: {
       firstname: name.toUpperCase(),
     },
