@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Testing Embeds</title>
+    <style>
+      #outer-container {
+        width: 80%;
+      }
+      #inner-container {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        position: relative;
+      }
+      #inner-container .vidyard_player > span {
+        height: 100% !important;
+        width: 100% !important;
+        position: absolute !important;
+      }
+      #inner-container .vidyard_player > span > iframe {
+        zoom: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outer-container"><div id="inner-container">
+      <script>
+(function() {
+  'use strict';
+
+  var uuid = get_query_param('uuid') || 'RMm2OmXcCMdUOLiQa_M0Kw';
+  uuid = uuid.match(/[-_a-zA-Z0-9]+/)[0];
+  var domain = get_query_param('domain') || 'play-staging-batman';
+  domain = domain.match(/^[^\.]+/)[0];
+
+  var html = [
+    '<div class="outer_vidyard_wrapper">',
+      '<div class="vidyard_wrapper" onclick="fn_vidyard_' + uuid.replace('-','$') + '();">',
+        '<img alt="london-night"',
+          ' width="360"',
+            ' src="//' + domain + '.vidyard.com/' + uuid + '.jpg?">',
+        '<div class="vidyard_play_button"><a href="javascript:void(0);"></a></div>',
+      '</div>',
+    '</div>'
+  ].join('');
+
+  var el = document.getElementById('inner-container');
+  el.innerHTML = html;
+  
+  var params = ['v=3.1.1',
+             'type=lightbox',
+      'html5_first=' + (get_query_param('html5_first') === '1'?'1':'0'),
+      'flash_first=' + (get_query_param('flash_first') === '1'?'1':'0'),
+            'debug=1',
+          'preview=1',
+       'force_ctas=1',
+  'force_analytics=1'].join('&');
+  
+  var s = document.createElement('script');
+  s.id  = 'vidyard_embed_code_' + uuid;
+  s.src = '//' + domain + '.vidyard.com/' + uuid + '.js?' + params;
+  el.appendChild(s);
+
+  // helper functions
+  function get_query_param(param_name) {
+    var params = location.search.slice(1).split('&');
+    var i = params.length;
+
+    while(i --> 0) {
+      var key_value = params[i].split('=');
+      if (decodeURIComponent(key_value[0]) === param_name) { return decodeURIComponent(key_value[1]); }
+    }
+
+    return undefined;
+  }
+}());
+      </script>
+    </div></div>
+  </body>
+</html>

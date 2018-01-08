@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Testing Embeds</title>
+    <style>
+      #outer-container {
+        width: 80%;
+      }
+      #inner-container {
+        width: 100%;
+        height: 0;
+        padding-bottom: 56.25%;
+        position: relative;
+      }
+      #inner-container .vidyard_player > span {
+        height: 100% !important;
+        width: 100% !important;
+        position: absolute !important;
+      }
+      #inner-container .vidyard_player > span > iframe {
+        zoom: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="outer-container"><div id="inner-container">
+      <script>
+      (function() {
+        'use strict';
+        
+        var url = (location.search.match(/url=(.*)/) || [])[1] || '';
+        if (!url.match(/^[^\/]+vidyard\.(dev|com)\//)) { url = 'play-staging.vidyard.com/rYhIeQlXJX0LwWE4_ymbCQ'; }
+        
+        var uuid = (url.match(/^[^\/]+\/([\w-]+)/) || [])[1];
+        var s = document.createElement('script');
+        s.id  = 'vidyard_embed_code_' + uuid;
+        s.src = '//' + url.replace(uuid, uuid + '.js');
+        document.getElementById('inner-container').appendChild(s);
+      }());
+      </script>
+    </div></div>
+  </body>
+</html>

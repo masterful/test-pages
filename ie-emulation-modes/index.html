@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <title>Testing various IE emulation modes with iframes</title>
+</head>
+<body>
+  <ul id="browsers"></ul>
+  <script>
+    var browsers = document.getElementById('browsers'),
+      pages = [7,8,9,10,11,'edge','html5'],
+      i = pages.length,
+      j;
+    
+    while (i-- > 0) {
+      j = pages.length;
+      var list = document.createElement('ul');
+      var item = document.createElement('li');
+      item.innerHTML = 'IE ' + pages[i];
+      item.appendChild(list);
+      browsers.appendChild(item);
+      
+      while (j-- > 0) {
+        var subItem = document.createElement('li');
+        subItem.innerHTML = '<a href="ie-' + pages[i] + '.html?' + pages[j] + '">IE ' + pages[j] + ' child</a>';
+        list.appendChild(subItem);
+      }
+    }
+  </script>
+</body>
+</html>

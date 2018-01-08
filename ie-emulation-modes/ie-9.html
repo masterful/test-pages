@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=9">
+  <title>IE emulation</title>
+  <style>
+    body {
+      margin: 30px;
+      font-family: sans-serif;
+    }
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      overflow: hidden;
+    }
+    pre {
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="current-version">IE 9: </h1>
+  <pre id="details"></pre>
+  <iframe id="child-page"></iframe>
+  <script>
+  var currentVersion = document.getElementById('current-version'),
+    details = document.getElementById('details'),
+    childPage = document.getElementById('child-page'),
+    baseURL = '//masterful.github.io/test-pages/ie-emulation-modes/',
+    childRequested = window.location.search.slice(1);
+  
+  currentVersion.innerHTML += document.title = 'IE ' + document.documentMode;
+  details.innerHTML = 'User-Agent: ' + navigator.userAgent;
+  if (childRequested.length) {
+    childPage.src = baseURL + 'ie-' + encodeURIComponent(childRequested) + '.html';
+    document.title += ' - IE ' + childRequested;
+  }
+  </script>
+</body>
+</html>

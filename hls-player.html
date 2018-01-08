@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>HLS player</title>
+    <style type="text/css">
+      html,
+      body {
+        margin: 0;
+      }
+      video {
+        width: 100%;
+        height: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <video id="video"></video>
+    <script>
+if(Hls.isSupported()) {
+  var video = document.getElementById('video');
+  var hls = new Hls({ startPosition: 0 });
+  var [_, hash] = location.search.slice(1).split('&').map(k => k.split('=')).find(([k, v]) => k === 'custom_hash') || [null, 'static/playlist'];
+  hls.loadSource('https://cdn-staging.vidyard.com/replicator/vidyard-demo/'+hash+'.m3u8');
+  hls.attachMedia(video);
+  hls.on(Hls.Events.MANIFEST_PARSED,function() {
+    video.play();
+  });
+}
+    </script>
+  </body>
+</html>
