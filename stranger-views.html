@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
@@ -699,6 +697,28 @@ var cmtt_data = {"cmtooltip":{"placement":"horizontal","clickable":true,"delay":
     });
   </script>
 </footer>
+<script type="text/javascript">
+(function() {
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('103-MWY-702');
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
 
   <script type='text/javascript'>
     var vidyardAJAX = {"url":"https:\/\/www.vidyard.com\/wp-admin\/admin-ajax.php","nonceLoadPosts":"4b94433e08","query_vars":"{\"page\":\"\",\"pagename\":\"stranger-views\"}"};
