@@ -704,13 +704,49 @@ var cmtt_data = {"cmtooltip":{"placement":"horizontal","clickable":true,"delay":
     if(didInit === false) {
       didInit = true;
       Munchkin.init('103-MWY-702');
-      Munchkin.currentCookie = $.cookie('_mkto_trk');
 	    
+      if (location.search.includes('vycustom_id')) {
+        console.log('Already have a custom video');
+        continue;
+      }
+
+      // Re-embed the second video with a custom ID after we submit the first name:
+      Munchkin.currentCookie = $.cookie('_mkto_trk');
+
       var url = 'https://na-sj04.marketo.com/index.php/form/getKnownLead?_mkt_trk=';
       url += encodeURIComponent(Munchkin.currentCookie);
-      url += '&form=1006&munchkinId=103-MWY-702&filledFields=false&callback=?';
+      url += '&form=1407&munchkinId=103-MWY-702&filledFields=false&callback=?';
       $.getJSON(url, function(data) {
-        console.log('Received data:', data);
+        if (!data || !data.FirstName) {
+          console.log('Already have a custom video');
+          continue;
+        }
+        // Submit to Blender and get custom id:
+        var firstname = data.FirstName.toUpperCase();
+        
+        // Get the unit uuid:
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://blender.vidyard.com/forms/c8Ls2prKGXWE4THP2cfmiP2yKRu06ZjL/submit', true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.setRequestHeader('Accept', 'application/json');
+        
+        xhr.onreadystatechange = function() {
+          if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+            // Get response data
+            var parsed = JSON.parse(xhr.responseText);
+            var uuid = parsed.unit.uuid;
+            var span = $('#vidyard_ygzEWmbef5iGyW9dFxpM4X').parent();
+	    var url = '//play.vidyard.com/orsi3eRfkdryTWAxDYiDkT.js?custom_id=' + uuid;
+            span.html('<script src="'+url+'" id="vidyard_embed_code_orsi3eRfkdryTWAxDYiDkT"></script>');
+          }
+        };
+        
+        xhr.send(JSON.stringify({
+          uuid: 'C8bvP9xvL8HAJeJSbQBek1',
+          fields: {
+            firstname: firstname,
+          },
+        }));
       });
     }
   }
