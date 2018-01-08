@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+  <title>Waiting for Marketo</title>
+</head>
+<body>
+  <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js?ver=2.2.4'></script>
+  <script>
+    $.getJSON(`https://app-sj04.marketo.com/index.php/form/getKnownLead?_mkt_trk=${encodeURIComponent($.cookie('_mkto_trk'))}&form=1407&munchkinId=103-MWY-702&filledFields=false&callback=?`, d => console.log(d))
+  </script>
+</body>
+</html>
