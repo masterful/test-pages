@@ -5,9 +5,23 @@
   <title>Waiting for Marketo</title>
 </head>
 <body>
+  <h1>Waiting for Marketo</h1>
+  <p>(It can take some time for that form submission to actually start returning the information that was just submitted ...)</p>
   <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js?ver=2.2.4'></script>
   <script>
-    $.getJSON(`https://app-sj04.marketo.com/index.php/form/getKnownLead?_mkt_trk=${encodeURIComponent($.cookie('_mkto_trk'))}&form=1407&munchkinId=103-MWY-702&filledFields=false&callback=?`, d => console.log(d))
+    var url = '//app-sj04.marketo.com/index.php/form/getKnownLead?_mkt_trk=';
+    url += encodeURIComponent($.cookie('_mkto_trk'));
+    url += '&form=1407&munchkinId=103-MWY-702&filledFields=false&callback=?';
+    
+    var interval = setInterval(function() {
+      $.getJSON(url, function(data) {
+        if (!data || !data.FirstName) {
+          console.log('Nothing yet ...');
+          return;
+        }
+        window.location = 'https://masterful.github.io/test-pages/stranger-views.html';
+      });
+    }, 2000);
   </script>
 </body>
 </html>
