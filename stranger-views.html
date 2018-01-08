@@ -718,7 +718,7 @@ var cmtt_data = {"cmtooltip":{"placement":"horizontal","clickable":true,"delay":
       url += '&form=1407&munchkinId=103-MWY-702&filledFields=false&callback=?';
       $.getJSON(url, function(data) {
         if (!data || !data.FirstName) {
-          console.log('Already have a custom video');
+          console.log('No First Name provided');
           return;
         }
         // Submit to Blender and get custom id:
