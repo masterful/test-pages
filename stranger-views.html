@@ -704,6 +704,14 @@ var cmtt_data = {"cmtooltip":{"placement":"horizontal","clickable":true,"delay":
     if(didInit === false) {
       didInit = true;
       Munchkin.init('103-MWY-702');
+      Munchkin.currentCookie = $.cookie('_mkto_trk');
+	    
+      var url = 'https://na-sj04.marketo.com/index.php/form/getKnownLead?_mkt_trk=';
+      url += encodeURIComponent(Munchkin.currentCookie);
+      url += '&form=1006&munchkinId=103-MWY-702&filledFields=false&callback=?';
+      $.getJSON(url, function(data) {
+        console.log('Received data:', data);
+      });
     }
   }
   var s = document.createElement('script');
