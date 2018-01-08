@@ -5,8 +5,30 @@
   <title>Marketo Form</title>
 </head>
 <body>
-  <script src="//app-sj04.marketo.com/js/forms2/js/forms2.min.js"></script>
   <form id="mktoForm_1407"></form>
-  <script>MktoForms2.loadForm("//app-sj04.marketo.com", "103-MWY-702", 1407);</script>
+  <script src="//app-sj04.marketo.com/js/forms2/js/forms2.min.js"></script>
+  <script type="text/javascript">
+  (function() {
+    var didInit = false;
+    function initMunchkin() {
+      if(didInit === false) {
+        didInit = true;
+        Munchkin.init('103-MWY-702');
+        MktoForms2.loadForm("//app-sj04.marketo.com", "103-MWY-702", 1407);
+      }
+    }
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = '//munchkin.marketo.net/munchkin.js';
+    s.onreadystatechange = function() {
+      if (this.readyState == 'complete' || this.readyState == 'loaded') {
+        initMunchkin();
+      }
+    };
+    s.onload = initMunchkin;
+    document.getElementsByTagName('head')[0].appendChild(s);
+  })();
+  </script>
 </body>
 </html>
