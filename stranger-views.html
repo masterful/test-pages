@@ -549,10 +549,83 @@ var cmtt_data = {"cmtooltip":{"placement":"horizontal","clickable":true,"delay":
                   <p>Episode I: Find That Viewer, Hop. Find Them!</p>
                 </div>
                 <div class="col-xs-12 col-md-6">
-                  <div class="vidyard_player">
-                    <script type="text/javascript" id="vidyard_embed_code_ygzEWmbef5iGyW9dFxpM4X"
-                    src="//play.vidyard.com/ygzEWmbef5iGyW9dFxpM4X.js?v=3.1.1&amp;type=inline&amp;autoplay=0">
-                    </script>
+                  <div class="vidyard_player" id="second-player">
+<script type="text/javascript">
+(function() {
+  var placeholder = $('#second-player');
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+
+  function handleFailure() {
+    script.id = 'vidyard_embed_code_ygzEWmbef5iGyW9dFxpM4X';
+    script.src = '//play.vidyard.com/ygzEWmbef5iGyW9dFxpM4X.js?v=3.1.1&type=inline&autoplay=0';
+    placeholder.html(script);
+  }
+  var didInit = false;
+  function initMunchkin() {
+    if(didInit === false) {
+      didInit = true;
+      Munchkin.init('103-MWY-702');
+	    
+      if (location.search.includes('vycustom_id')) {
+        console.log('Already have a custom video');
+        return handleFailure();
+      }
+
+      // Re-embed the second video with a custom ID after we submit the first name:
+      Munchkin.currentCookie = $.cookie('_mkto_trk');
+
+      var url = 'https://na-sj04.marketo.com/index.php/form/getKnownLead?_mkt_trk=';
+      url += encodeURIComponent(Munchkin.currentCookie);
+      url += '&form=1407&munchkinId=103-MWY-702&filledFields=false&callback=?';
+      $.getJSON(url, function(data) {
+        if (!data || !data.FirstName) {
+          console.log('No First Name provided');
+          return handleFailure();
+        }
+        // Submit to Blender and get custom id:
+        var firstname = data.FirstName.toUpperCase();
+        
+        // Get the unit uuid:
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://blender.vidyard.com/forms/c8Ls2prKGXWE4THP2cfmiP2yKRu06ZjL/submit', true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.setRequestHeader('Accept', 'application/json');
+        
+        xhr.onreadystatechange = function() {
+          if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+            // Get response data
+            var parsed = JSON.parse(xhr.responseText);
+            var uuid = parsed.unit.uuid;
+	    
+            script.id = 'vidyard_embed_code_orsi3eRfkdryTWAxDYiDkT';
+            script.src = '//play.vidyard.com/orsi3eRfkdryTWAxDYiDkT.js?v=3.1.1&type=inline&autoplay=0&custom_id=' + uuid';
+            placeholder.html(script);
+          }
+        };
+        
+        xhr.send(JSON.stringify({
+          uuid: 'C8bvP9xvL8HAJeJSbQBek1',
+          fields: {
+            firstname: firstname,
+          },
+        }));
+      });
+    }
+  }
+  var s = document.createElement('script');
+  s.type = 'text/javascript';
+  s.async = true;
+  s.src = '//munchkin.marketo.net/munchkin.js';
+  s.onreadystatechange = function() {
+    if (this.readyState == 'complete' || this.readyState == 'loaded') {
+      initMunchkin();
+    }
+  };
+  s.onload = initMunchkin;
+  document.getElementsByTagName('head')[0].appendChild(s);
+})();
+</script>
                   </div>
                   <p>Episode II: Test Subject #5 (V) Has the Insights</p>
                 </div>
@@ -697,72 +770,6 @@ var cmtt_data = {"cmtooltip":{"placement":"horizontal","clickable":true,"delay":
     });
   </script>
 </footer>
-<script type="text/javascript">
-(function() {
-  var didInit = false;
-  function initMunchkin() {
-    if(didInit === false) {
-      didInit = true;
-      Munchkin.init('103-MWY-702');
-	    
-      if (location.search.includes('vycustom_id')) {
-        console.log('Already have a custom video');
-        return;
-      }
-
-      // Re-embed the second video with a custom ID after we submit the first name:
-      Munchkin.currentCookie = $.cookie('_mkto_trk');
-
-      var url = 'https://na-sj04.marketo.com/index.php/form/getKnownLead?_mkt_trk=';
-      url += encodeURIComponent(Munchkin.currentCookie);
-      url += '&form=1407&munchkinId=103-MWY-702&filledFields=false&callback=?';
-      $.getJSON(url, function(data) {
-        if (!data || !data.FirstName) {
-          console.log('No First Name provided');
-          return;
-        }
-        // Submit to Blender and get custom id:
-        var firstname = data.FirstName.toUpperCase();
-        
-        // Get the unit uuid:
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'https://blender.vidyard.com/forms/c8Ls2prKGXWE4THP2cfmiP2yKRu06ZjL/submit', true);
-        xhr.setRequestHeader('Content-type', 'application/json');
-        xhr.setRequestHeader('Accept', 'application/json');
-        
-        xhr.onreadystatechange = function() {
-          if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
-            // Get response data
-            var parsed = JSON.parse(xhr.responseText);
-            var uuid = parsed.unit.uuid;
-            var span = $('#vidyard_ygzEWmbef5iGyW9dFxpM4X').parent();
-	    var url = '//play.vidyard.com/orsi3eRfkdryTWAxDYiDkT.js?custom_id=' + uuid;
-            span.html('<script src="'+url+'" id="vidyard_embed_code_orsi3eRfkdryTWAxDYiDkT"></' + 'script>');
-          }
-        };
-        
-        xhr.send(JSON.stringify({
-          uuid: 'C8bvP9xvL8HAJeJSbQBek1',
-          fields: {
-            firstname: firstname,
-          },
-        }));
-      });
-    }
-  }
-  var s = document.createElement('script');
-  s.type = 'text/javascript';
-  s.async = true;
-  s.src = '//munchkin.marketo.net/munchkin.js';
-  s.onreadystatechange = function() {
-    if (this.readyState == 'complete' || this.readyState == 'loaded') {
-      initMunchkin();
-    }
-  };
-  s.onload = initMunchkin;
-  document.getElementsByTagName('head')[0].appendChild(s);
-})();
-</script>
 
   <script type='text/javascript'>
     var vidyardAJAX = {"url":"https:\/\/www.vidyard.com\/wp-admin\/admin-ajax.php","nonceLoadPosts":"4b94433e08","query_vars":"{\"page\":\"\",\"pagename\":\"stranger-views\"}"};
