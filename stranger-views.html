@@ -707,7 +707,7 @@ var cmtt_data = {"cmtooltip":{"placement":"horizontal","clickable":true,"delay":
 	    
       if (location.search.includes('vycustom_id')) {
         console.log('Already have a custom video');
-        continue;
+        return;
       }
 
       // Re-embed the second video with a custom ID after we submit the first name:
@@ -719,7 +719,7 @@ var cmtt_data = {"cmtooltip":{"placement":"horizontal","clickable":true,"delay":
       $.getJSON(url, function(data) {
         if (!data || !data.FirstName) {
           console.log('Already have a custom video');
-          continue;
+          return;
         }
         // Submit to Blender and get custom id:
         var firstname = data.FirstName.toUpperCase();
