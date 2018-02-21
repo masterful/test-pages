@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Instant Video</title>
+    <style type="text/css">
+html,
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+form {
+  padding: 2em;
+}
+label,
+input {
+  margin: 0.5em 0 0 0;
+  display: block;
+  line-height: 1.3em;
+  height: 1.3em;
+  font-size: 1em;
+}
+input {
+  padding: 0.2em;
+}
+input.invalid {
+  border-color: red;
+}
+
+#container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background-color: #eee;
+}
+#container iframe {
+  position: absolute;
+  margin: 3em 0;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #eee;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+button {
+  margin: 1em;
+  height: 2em;
+  display: inline-block;
+  box-sizing: border-box;
+  background-color: #a5de37;
+  border: none;
+  color: #333;
+  transition: all 0.3s;
+  padding: 0 1em;
+  cursor: pointer;
+}
+button:hover,
+button:focus {
+  background-color: #b9e563;
+}
+button:active {
+  background-color: #a1d243;
+  color: #ddd;
+}
+button:disabled {
+  background-color: #a1a1a1;
+  color: #ddd;
+}
+    </style>
+  </head>
+  <body>
+    <form id="instant">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name" value="" placeholder="John" autocomplete="off">
+      <input type="text" name="company" id="company" value="" placeholder="Vidyard" autocomplete="off">
+      <button type="button" id="create">Create</button>
+    </form>
+    <div id="container">
+      <iframe src="about:blank" id="viewer" scrolling="no"></iframe>
+    </div>
+    <script>
+const fields = {
+  name: document.getElementById('name'),
+  company: document.getElementById('company'),
+};
+
+const iframe = document.getElementById('viewer');
+const yCoord = iframe.getBoundingClientRect().top;
+
+let timeout;
+iframe.onload = function() {
+  create.disabled = false;
+  clearTimeout(timeout);
+}
+
+// Prevent form submissions:
+const form = document.getElementById('instant');
+form.addEventListener('submit', function(e) { e.preventDefault(); createVideo(); });
+
+const create = document.getElementById('create');
+create.addEventListener('click', function() { createVideo(); return false; });
+create.addEventListener('touchdown', function() { createVideo(); return false; });
+
+function createVideo() {
+  if (create.disabled) { return; };
+  // Object we'll be passing to the creator:
+  const values = {};
+  
+  // Simple validation stuff:
+  let valid = true;
+  for (let fieldName in fields) {
+    const field = fields[fieldName];
+    const value = field.value.trim();
+    const fieldValid = value.length > 0;
+    valid = valid && fieldValid;
+    field.className = fieldValid ? '' : 'invalid';
+    values[fieldName] = value;
+  }
+  if (!valid) { return; }
+  
+  // Bundle up the fields into the object we'll be encoding:
+  const { name, company } = values;
+  
+  // Get the unit uuid:
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://blender-staging.vidyard.com/forms/j6XrwHx1vcJGeedDyfxVnh/submit', true);
+  xhr.setRequestHeader('Content-type', 'application/json');
+  xhr.setRequestHeader('Accept', 'application/json');
+  
+  xhr.onreadystatechange = function() {
+    if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+      // Get response data
+      console.log(xhr);
+      const { unit: { uuid } } = JSON.parse(xhr.responseText);
+      
+      iframe.src = `https://play-staging.vidyard.com/u4xdrpAZmvbAD2PCePAsoV?custom_id=${uuid}&preview=1`;
+      window.scrollTo(0, yCoord);
+    }
+  };
+  
+  xhr.send(JSON.stringify({
+    uuid: 'ScXf5x2eMwpUyeiLUAzY5i',
+    fields: {
+      'first-name': name.toUpperCase(),
+      company: company.toUpperCase(),
+      'company-possessive': company.toUpperCase() + "'s",
+    },
+  }));
+  create.disabled = true;
+  timeout = setTimeout(function() { create.disabled = false }, 14000);
+}
+    </script>
+  </body>
+</html>
