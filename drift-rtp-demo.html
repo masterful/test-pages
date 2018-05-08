@@ -146,6 +146,8 @@ function createVideo() {
   xhr.send(JSON.stringify({
     uuid: 'APdvBCvF8TWggaK1ixCqKF',
     fields: values,
+    email: 'pim@vidyard.com',
+    meta: { 'player-uuid': 'RiViG8XuSpxGC1U9GJKom9' },
   }));
   create.disabled = true;
   timeout = setTimeout(function() { create.disabled = false }, 14000);
