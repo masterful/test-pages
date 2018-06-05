@@ -146,13 +146,7 @@ function createVideo() {
     }
   };
   
-  xhr.send(JSON.stringify({
-    uuid: 'kb64koP1XTLx4zMJ5E6fXZ',
-    fields: {
-      firstname: firstname[0].toLocaleUpperCase() + firstname.slice(1),
-      why: why[0].toLocaleUpperCase() + why.slice(1),
-    },
-  }));
+  xhr.send(JSON.stringify({ fields: { firstname, why } }));
   create.disabled = true;
   timeout = setTimeout(function() { create.disabled = false }, 14000);
 }
