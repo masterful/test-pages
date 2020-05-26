@@ -1,0 +1,10 @@
+{
+  "type": "video",
+  "version": "1.0",
+  "provider_name": "Vidyard",
+  "provider_url": "https://vidyard.com/",
+  "title": "Gran dillama",
+  "width": 640,
+  "height": 360,
+  "html": "<script type=\"text/javascript\" async src=\"https://play.vidyard.com/embed/v4.js\"></script>\n<img\n  style=\"width: 100%; margin: auto; display: block;\"\n  class=\"vidyard-player-embed\"\n  src=\"https://play.vidyard.com/juRrd8cCymXzCCyvBmrxtV.jpg\"\n  data-uuid=\"juRrd8cCymXzCCyvBmrxtV\"\n  data-v=\"4\"\n  data-type=\"inline\"\n  data-width=\"640\"\n  data-height=\"360\"\n/>"
+}
