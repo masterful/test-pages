@@ -128,7 +128,7 @@ function createVideo() {
   
   // Get the unit uuid:
   const xhr = new XMLHttpRequest();
-  xhr.open('POST', 'https://blender.vidyard.com/forms/axE1KC6T1UdpSz3DyUSgP4/submit', true);
+  xhr.open('POST', 'https://blender.vidyard.com/forms/Tnb8vtdS6x6TU2Co4hgNM4/submit', true);
   xhr.setRequestHeader('Content-type', 'application/json');
   xhr.setRequestHeader('Accept', 'application/json');
   
@@ -138,7 +138,7 @@ function createVideo() {
       console.log(xhr);
       const { unit: { uuid } } = JSON.parse(xhr.responseText);
       
-      iframe.src = `https://play.vidyard.com/xTd6W3niau5WfKSg65WXmo?custom_id=${uuid}&debug=1`;
+      iframe.src = `https://play.vidyard.com/bxYbjufrCBaqiqxjtbMaNm?custom_id=${uuid}&debug=1`;
       window.scrollTo(0, yCoord);
     }
   };
